@@ -1,8 +1,31 @@
-<h2>Product</h2>
+<div class="py-4 px-6 border rounded flex items-center flex-col mb-2">
+  <img [src]="product.image" [alt]="product.title" class="w-1/6 mb-2" />
+  <h2 class="mb-2 text-md text-center">{{ product.title }}</h2>
+  <p class="">
+    Price: <span class="font-bold">{{ product.price | currency }}</span>
+  </p>
 
-<p>
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam fugiat
-  perspiciatis mollitia quisquam nemo itaque excepturi nesciunt voluptatum
-  impedit! Aliquam, ipsam laudantium! In laboriosam nesciunt reprehenderit
-  debitis sint, ullam sapiente.
-</p>
+  <button
+    class="border py-2 px-4 rounded bg-blue-600 text-black"
+    [ngClass]="{
+      'bg-yellow-400': details,
+      'bg-blue-400': !details
+    }"
+    (click)="details = !details"
+  >
+    {{ details ? "Hide" : "Show" }} Details
+  </button>
+
+  <div *ngIf="details">
+    <p class="">{{ product.description }}</p>
+    <p>
+      Rate:
+      <span
+        [ngStyle]="{
+          fontWeight: 'bold'
+        }"
+        >{{ product.rating.rate | number: "1.1-2" }}</span
+      >
+    </p>
+  </div>
+</div>
