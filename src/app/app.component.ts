@@ -1,3 +1,4 @@
+import { ModalService } from './services/modal.service';
 import { Observable, tap } from 'rxjs';
 import { ProductService } from './services/products.service';
 import { IProduct } from './models/product';
@@ -12,22 +13,24 @@ export class AppComponent implements OnInit {
   title = 'angular app'
   // products: IProduct[] = []
   loading = false
-  products$: Observable<IProduct[]>
+  // products$: Observable<IProduct[]>
   term = ''
 
-  constructor(private productService: ProductService) {
+  constructor(
+    public productService: ProductService,
+    public modalService: ModalService
+  ) {
   }
 
   ngOnInit(): void {
     this.loading = true
-    this.products$ = this.productService.getProducts().pipe(
-      tap(() => this.loading = false)
-    )
+    // this.products$ = this.productService.getProducts().pipe(
+    //   tap(() => this.loading = false)
+    // )
 
-    // this.productService.getProducts().subscribe((products) => {
-    //   this.products = products
-    //   this.loading = false
-    // })
+    this.productService.getProducts().subscribe(() => {
+      this.loading = false
+    })
 
   }
 }
